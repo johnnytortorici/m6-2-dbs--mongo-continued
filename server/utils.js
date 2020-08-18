@@ -51,4 +51,4 @@ const migrateSeats = async (dbName) => {
   console.log("Disconnected!");
 };
 
-migrateSeats("m6-2-dbs");
+migrateSeats("m6_2_dbs");
