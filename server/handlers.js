@@ -65,6 +65,16 @@ const bookSeat = async (req, res) => {
 
     if (isAlreadyBooked) {
       res.status(400).json({ message: "This seat has already been booked!" });
+    } else if (!fullName) {
+      res.status(400).json({
+        status: 400,
+        message: "Please provide your full name!",
+      });
+    } else if (!email) {
+      res.status(400).json({
+        status: 400,
+        message: "Please provide your email!",
+      });
     } else if (!creditCard || !expiration) {
       res.status(400).json({
         status: 400,
@@ -72,7 +82,9 @@ const bookSeat = async (req, res) => {
       });
     } else {
       const query = { _id: seatId };
-      const newValues = { $set: { isBooked: true } };
+      const newValues = {
+        $set: { ...{ isBooked: true, fullName: fullName, email: email } },
+      };
 
       const r = await db.collection("seats").updateOne(query, newValues);
 
